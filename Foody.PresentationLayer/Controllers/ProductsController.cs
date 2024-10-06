@@ -49,5 +49,21 @@ namespace Foody.PresentationLayer.Controllers
             _productService.TInsert(product);
             return RedirectToAction("ProductListWithCategory");
         }
+
+        [HttpGet]
+        public IActionResult UpdateProduct(int id)
+        {
+            var values = _categoryService.TGetAll();
+            ViewBag.categories = new SelectList(values, "CategoryId", "CategoryName");
+            var productValues=_productService.TGetById(id);
+            return View(productValues);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateProduct(Product product)
+        {
+            _productService.TUpdate(product);
+            return RedirectToAction("ProductListWithCategory");
+        }
     }
 }
